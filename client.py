@@ -34,18 +34,18 @@ def sanity_check(args):
         sys.exit(1)
 
 def extract_creds():
-    #try:
-    with open(CONFIG_PATH, 'r') as f:
-        userdata = json.load(f)
-        if 'username' not in userdata and 'token' not in userdata:
-            print "Need both username and token \
-                   in config file, ignoring it."
-            return None
-        return userdata
-    #except OSError:
-        #pass
-    #except ValueError:
-        #print "Malformed config file, ignoring it."
+    try:
+        with open(CONFIG_PATH, 'r') as f:
+            userdata = json.load(f)
+            if 'username' not in userdata and 'token' not in userdata:
+                print "Need both username and token \
+                       in config file, ignoring it."
+                return None
+            return userdata
+    except OSError:
+        pass
+    except ValueError:
+        print "Malformed config file, ignoring it."
     return None
 
 def main():

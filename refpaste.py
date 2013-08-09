@@ -38,8 +38,7 @@ def extract_creds():
         with open(CONFIG_PATH, 'r') as f:
             userdata = json.load(f)
             if 'username' not in userdata and 'token' not in userdata:
-                print "Need both username and token \
-                       in config file, ignoring it."
+                print "Need both username and token in config file, ignoring it."
                 return None
             return userdata
     except OSError:
@@ -49,7 +48,7 @@ def extract_creds():
     return None
 
 def main():
-    parser = argparse.ArgumentParser(description="Paste some stuff.")
+    parser = argparse.ArgumentParser(description="Paste to http://www.refheap.com.")
     parser.add_argument('path',
                         nargs='?', default=None,
                         help="Path for file to paste.")

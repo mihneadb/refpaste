@@ -59,16 +59,19 @@ def main():
                               this and will try to infer from the file ext.")
     parser.add_argument('--private', '-p',
                         dest='private', default=False,
-                        help="Whether to make the paste private")
+                        help="Whether to make the paste private.")
     parser.add_argument('--no-clipboard', '-n', action='store_true',
                         dest='no_clipboard', default=False,
-                        help="If you don't want the URL in the clipboard")
+                        help="If you don't want the URL in the clipboard.")
     parser.add_argument('--username', '-u',
                         dest='username', default=None,
                         help="Username to associate paste with. Needs token!")
     parser.add_argument('--token', '-t',
                         dest='token', default=None,
-                        help="Token to verify username")
+                        help="Token to verify username.")
+    parser.add_argument('--anonymous', '-a', action='store_true',
+                        dest='anonymous', default=False,
+                        help="Paste this anonymously.")
 
     args = parser.parse_args()
     sanity_check(args)
@@ -76,13 +79,14 @@ def main():
     data = {}
     data['private'] = args.private
 
-    userdata = extract_creds()
-    if userdata:
-        data.update(userdata)
+    if not args.anonymous:
+        userdata = extract_creds()
+        if userdata:
+            data.update(userdata)
 
-    if args.username:
-        data['username'] = args.username
-        data['token'] = args.token
+        if args.username:
+            data['username'] = args.username
+            data['token'] = args.token
 
     if args.path:
         with open(args.path, 'r') as f:

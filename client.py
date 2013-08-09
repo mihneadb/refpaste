@@ -26,6 +26,11 @@ def save_in_clipboard(string):
     p = Popen([cmd], stdin=PIPE)
     p.communicate(input=string)
 
+def sanity_check(args):
+    if args.username and not args.token:
+        print "Token not provided (--token)."
+        sys.exit(1)
+
 def main():
     parser = argparse.ArgumentParser(description="Paste some stuff.")
     parser.add_argument('path',
@@ -41,10 +46,22 @@ def main():
     parser.add_argument('--no-clipboard', '-n', action='store_true',
                         dest='no_clipboard', default=False,
                         help="If you don't want the URL in the clipboard")
+    parser.add_argument('--username', '-u',
+                        dest='username', default=None,
+                        help="Username to associate paste with. Needs token!")
+    parser.add_argument('--token', '-t',
+                        dest='token', default=None,
+                        help="Token to verify username")
 
     args = parser.parse_args()
+    sanity_check(args)
+
     data = {}
     data['private'] = args.private
+
+    if args.username:
+        data['username'] = args.username
+        data['token'] = args.token
 
     if args.path:
         with open(args.path, 'r') as f:
@@ -54,8 +71,14 @@ def main():
         data['contents'] = sys.stdin.read()
         data['language'] = args.language if args.language else 'Plain Text'
 
-    req = urllib2.urlopen("https://www.refheap.com/api/paste",
-                          data=urllib.urlencode(data))
+    req = None
+    try:
+        req = urllib2.urlopen("https://www.refheap.com/api/paste",
+                              data=urllib.urlencode(data))
+    except urllib2.HTTPError:
+        print "Bad request. Wrong user & token, maybe?"
+        sys.exit(1)
+
     response = json.loads(req.read())
     url = response['url']
 

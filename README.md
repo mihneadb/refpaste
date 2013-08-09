@@ -1,4 +1,4 @@
-refheapcl
+refpaste
 =========
 
 command line client for refheap.com

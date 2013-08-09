@@ -28,3 +28,9 @@ Paste of the usage help string:
       --token TOKEN, -t TOKEN
                             Token to verify username.
       --anonymous, -a       Paste anonymously.
+
+You can also set up a JSON file in `~/.refpasterc` with a pair of your username
+and token data, i.e.:
+
+    {"username": "YOUR USERNAME", "token": "YOUR TOKEN"}
+

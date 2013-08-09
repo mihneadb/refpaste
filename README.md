@@ -5,10 +5,10 @@ command line client for refheap.com
 
 Paste of the usage help string:
 
-    usage: refpaste.py [-h] [--language LANGUAGE] [--private PRIVATE]
-                       [--no-clipboard] [--username USERNAME] [--token TOKEN]
-                       [--anonymous]
-                       [path]
+    usage: refpaste [-h] [--language LANGUAGE] [--private PRIVATE]
+                    [--no-clipboard] [--username USERNAME] [--token TOKEN]
+                    [--anonymous]
+                    [path]
 
     Paste to http://www.refheap.com.
 
@@ -27,4 +27,4 @@ Paste of the usage help string:
                             Username to associate paste with. Needs token!
       --token TOKEN, -t TOKEN
                             Token to verify username.
-      --anonymous, -a       Paste this anonymously.
+      --anonymous, -a       Paste anonymously.

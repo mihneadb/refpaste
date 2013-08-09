@@ -70,7 +70,7 @@ def main():
                         help="Token to verify username.")
     parser.add_argument('--anonymous', '-a', action='store_true',
                         dest='anonymous', default=False,
-                        help="Paste this anonymously.")
+                        help="Paste anonymously.")
 
     args = parser.parse_args()
     sanity_check(args)

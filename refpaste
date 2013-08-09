@@ -9,7 +9,7 @@ import sys
 
 from subprocess import Popen, PIPE
 
-CONFIG_FILE = '.refpaste'
+CONFIG_FILE = '.refpasterc'
 CONFIG_PATH = os.path.join(os.path.expanduser('~'), CONFIG_FILE)
 
 def get_ext(path):

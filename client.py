@@ -9,6 +9,8 @@ import sys
 
 from subprocess import Popen, PIPE
 
+CONFIG_FILE = '.refpaste'
+CONFIG_PATH = os.path.join(os.path.expanduser('~'), CONFIG_FILE)
 
 def get_ext(path):
     name, ext = os.path.splitext(path)
@@ -30,6 +32,21 @@ def sanity_check(args):
     if args.username and not args.token:
         print "Token not provided (--token)."
         sys.exit(1)
+
+def extract_creds():
+    #try:
+    with open(CONFIG_PATH, 'r') as f:
+        userdata = json.load(f)
+        if 'username' not in userdata and 'token' not in userdata:
+            print "Need both username and token \
+                   in config file, ignoring it."
+            return None
+        return userdata
+    #except OSError:
+        #pass
+    #except ValueError:
+        #print "Malformed config file, ignoring it."
+    return None
 
 def main():
     parser = argparse.ArgumentParser(description="Paste some stuff.")
@@ -58,6 +75,10 @@ def main():
 
     data = {}
     data['private'] = args.private
+
+    userdata = extract_creds()
+    if userdata:
+        data.update(userdata)
 
     if args.username:
         data['username'] = args.username

@@ -26,7 +26,8 @@ def main():
                         help="Path for file to paste.")
     parser.add_argument('--language', '-l',
                         dest='language', default=None,
-                        help="Language for syntax highlighting")
+                        help="Language for syntax highlighting. You can omit \
+                              this and will try to infer from the file ext.")
     parser.add_argument('--private', '-p',
                         dest='private', default=False,
                         help="Whether to make the paste private")

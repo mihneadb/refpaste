@@ -1,7 +1,7 @@
 refpaste
 =========
 
-command line client for refheap.com
+Python command line client for http://www.refheap.com
 
 Paste of the usage help string:
 

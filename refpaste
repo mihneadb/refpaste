@@ -41,7 +41,7 @@ def extract_creds():
                 print "Need both username and token in config file, ignoring it."
                 return None
             return userdata
-    except OSError:
+    except IOError:
         pass
     except ValueError:
         print "Malformed config file, ignoring it."
